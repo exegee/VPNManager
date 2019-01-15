@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="MainMenu.Views.AboutNotificationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainMenu.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             Height="150" Width="300" Background="White">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50 15 0 0">
+        <TextBlock Text=""/>
+        <TextBlock FontWeight="SemiBold" FontSize="24" Text="{Binding Product, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10"/>
+        <WrapPanel>
+            <TextBlock FontSize="14" Text="Version: "/>
+            <TextBlock FontSize="14" Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <TextBlock FontSize="14" Text="{Binding Copyrights, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock FontSize="14" Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}"/>
+            
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="StatusBar.Views.StatusBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatusBar.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             Height="25" d:DesignWidth="800">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Text="{Binding Message}"/>
+            </StatusBarItem>
+            <Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2">
+                <TextBlock>
+                    <Run Text="Active connection: "/>
+                    <Run FontWeight="SemiBold" Text="{Binding ActiveConnectionMessage}"/>
+                </TextBlock>
+            </StatusBarItem>
+            <Separator Grid.Column="3"/>
+            <StatusBarItem Grid.Column="4">
+                <TextBlock>
+                    <Run Text="Interface: "/>
+                    <Run FontWeight="SemiBold" Text="{Binding InterfaceMessage}"/>
+                </TextBlock>
+            </StatusBarItem>
+            <!--<Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2" HorizontalAlignment="Center">
+                <TextBlock>
+                    <Run Text="Użytkownik: "/>
+                    <Run Text="{Binding UserName}" FontWeight="Bold"/>
+                </TextBlock>
+            </StatusBarItem>-->
+            <!--<Separator Grid.Column="3"/>
+            <StatusBarItem Grid.Column="4" HorizontalAlignment="Center">
+                <Grid>
+                    <ProgressBar Name="progressBar" Value="75" Width="240" Height="16" Margin="2 0 2 0"/>
+                    <TextBlock Text="{Binding ElementName=progressBar, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </StatusBarItem>
+            <Separator Grid.Column="5"/>-->
+            <!--<StatusBarItem Grid.Column="6" Margin="2 0 2 0" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock >
+                    <Run Text="Stan bazy danych: "/>
+                    <Run Text="{Binding DatabaseStatusMessage}" Foreground="{Binding DatabaseStatus, Converter={StaticResource DatabaseStatusEnumToSolidColorBrushConverter}}" FontWeight="Bold"/>
+                    </TextBlock>
+                </StackPanel>-->
+            <!--</StatusBarItem>-->
+            <Separator Grid.Column="5"/>
+            <StatusBarItem Grid.Column="6" Padding="5 0 5 0" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding CurrentDate}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </DockPanel>
+</UserControl>
