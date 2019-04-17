@@ -40,6 +40,17 @@ namespace Basic.ViewModels
                 UpdateStatusBarActiveConnectionMessage(value == null ? "Not connected" : value.HostName);
             }
         }
+
+        private VpnRemoteHost _selectedVPNConnection;
+
+        public VpnRemoteHost SelectedVPNConnection
+        {
+            get { return _selectedVPNConnection; }
+            set
+            {
+                SetProperty(ref _selectedVPNConnection, value);
+            }
+        }
         private bool _isBusy = true;
 
         public bool IsBusy
@@ -48,8 +59,23 @@ namespace Basic.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
+        private bool _contextMenuOpen;
+
+        public bool ContextMenuOpen
+        {
+            get { return _contextMenuOpen; }
+            set { SetProperty(ref _contextMenuOpen, value);
+                
+            }
+        }
+
+
         public DelegateCommand<object> VPNHostCommand { get; set; }
         public DelegateCommand BasicViewLoadedCommand { get; set; }
+        public DelegateCommand<object> EditVpnRemoteHostCommand { get; set; }
+        public DelegateCommand<object> MouseRightClickCommand { get; set; }
+
+        public InteractionRequest<INotification> EditVpnRemoteHostRequest { get; set; }
 
         private ObservableCollection<VpnRemoteHost> _vpnRemoteHosts;
         public ObservableCollection<VpnRemoteHost> VpnRemoteHosts
@@ -70,6 +96,8 @@ namespace Basic.ViewModels
         {
             VPNHostCommand = new DelegateCommand<object>(VPNHostAction);
             BasicViewLoadedCommand = new DelegateCommand(OnViewLoad);
+            EditVpnRemoteHostCommand = new DelegateCommand<object>(RaiseEditVpnRemoteHostRequest);
+            MouseRightClickCommand = new DelegateCommand<object>(OnMouseRightClick);
              _vPNService = vPNService;
             _sqlConnector = sqlConnector;
             //_sqlConnector.EncryptConnectionString();
@@ -79,6 +107,26 @@ namespace Basic.ViewModels
             _vPNService.Connected += _vPNService_Connected;
             _vPNService.Disconnected += _vPNService_Disconnected;
             _closingService.ApplicationClosing += _closingService_ApplicationClosing;
+            EditVpnRemoteHostRequest = new InteractionRequest<INotification>();
+        }
+
+        private void OnMouseRightClick(object obj)
+        {
+            if (obj != null)
+            {
+                var vpn = obj as VpnRemoteHost;
+                SelectedVPNConnection = vpn;
+            }     
+        }
+
+        private void RaiseEditVpnRemoteHostRequest(object obj)
+        {
+            EditVpnRemoteHostRequest.Raise(new Notification { Title = "Edit VPN remote host", Content = obj }, r => FinishedEditingVpnRemoteHost(r.Content) );
+        }
+
+        private void FinishedEditingVpnRemoteHost(object content)
+        {
+            LoadVPNHosts();
         }
 
         // Called when BasicView load event is fired
@@ -111,7 +159,6 @@ namespace Basic.ViewModels
 
         private void CurrentDispatcher_ShutdownStarted(object sender, EventArgs e)
         {
-            
             _vPNService.Disconnect();
         }
 
@@ -167,11 +214,13 @@ namespace Basic.ViewModels
             _vPNService.InterfaceName = "Stolarczyk";
             _vPNService.ServerIPAddress = "217.117.139.45";
             _vPNService.PreSharedKey = "p47:{L=*L#B@e6SG";
-            _vPNService.UserName = "PawelZ";
-            //_vPNService.UserName = "AndrzejK";
-            //_vPNService.UserPassword = "+smFuWFtK*8Z(R8k";
+            
+            _vPNService.UserName = "AndrzejK";
+            _vPNService.UserPassword = "+smFuWFtK*8Z(R8k";
+
+            //_vPNService.UserName = "PawelZ";
             //_vPNService.UserPassword = "y5:hz//4sN:V+Ah+";
-            _vPNService.UserPassword = "123456";
+            //_vPNService.UserPassword = "123456";
         }
 
         private void _vPNService_StatusChanged(object sender, EventArgs e)

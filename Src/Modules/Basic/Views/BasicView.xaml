@@ -14,6 +14,20 @@
              Height="400"
              >
     <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditVpnRemoteHostRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowStyle>
+                    <Style TargetType="Window">
+                        <Setter Property="ResizeMode" Value="NoResize"/>
+                        <Setter Property="Height" Value="285"/>
+                        <Setter Property="Width" Value="450"/>
+                    </Style>
+                </prism:PopupWindowAction.WindowStyle>
+                <prism:PopupWindowAction.WindowContent>
+                    <local:EditVpnRemoteHostView/>
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding BasicViewLoadedCommand}"/>
         </i:EventTrigger>
@@ -54,15 +68,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MyFocusVisualStyle">
+        <!--<Style x:Key="MyFocusVisualStyle">
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Rectangle Margin="-2" StrokeThickness="1" Stroke="Red"/>
+                        <Rectangle Margin="10" StrokeThickness="1" Stroke="Red"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
+        </Style>-->
         <Style x:Key="HiddenHeader" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -114,13 +128,15 @@
             </Setter>
         </Style>
         <Style TargetType="ListViewItem" x:Shared="False">
+            <Setter Property="Height" Value="35"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
+                    
                     <Setter Property="IsSelected" Value="True"/>
                     <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}"/>
+
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="False">
-                    
                     <!--<Setter Property="FocusManager.IsFocusScope" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl},Mode=FindAncestor}}"/>-->
                 </Trigger>
             </Style.Triggers>
@@ -132,7 +148,7 @@
                     <Setter Property="IsHitTestVisible" Value="False"/>
                 </Style>
             </GridView.ColumnHeaderContainerStyle>
-            <GridViewColumn Header="Status" Width="50">
+            <GridViewColumn Header="Status" Width="40">
                 <GridViewColumn.CellTemplate>
                     <DataTemplate>
                         <Image Source="{Binding Path=Status, Converter={StaticResource VPNConnectionStatusToBitmapImageConverter}}"
@@ -156,7 +172,7 @@
                     </DataTemplate>
                 </GridViewColumn.CellTemplate>
             </GridViewColumn>
-            <GridViewColumn Header="Latency" Width="100">
+            <GridViewColumn Header="Latency" Width="80">
                 <GridViewColumn.CellTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -183,17 +199,43 @@
     </UserControl.Resources>
     <Grid>
         <extToolkit:BusyIndicator BusyContent="Loading available VPN hosts..." IsBusy="{Binding IsBusy}">
-
-            <StackPanel>
-                <!--<TextBlock Text="{Binding Status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>-->
+            <!--<TextBlock Text="{Binding Status, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>-->
             <ListView ItemsSource="{Binding VpnRemoteHosts, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                  View="{DynamicResource vpnHostsList}" VerticalAlignment="Stretch" Height="Auto">
-
+                  View="{DynamicResource vpnHostsList}" ScrollViewer.CanContentScroll="True" Height="Auto" Margin="0 0 0 35">
+                <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseRightButtonUp">
+                    <i:InvokeCommandAction Command="{Binding MouseRightClickCommand}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}, Mode=FindAncestor}, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add" 
+                              >
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/VPNManager.Core;component/Images/add_page.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Edit" 
+                              Command="{Binding EditVpnRemoteHostCommand}"
+                              CommandParameter="{Binding SelectedVPNConnection}">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/VPNManager.Core;component/Images/edit_page.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Delete" 
+                              >
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/VPNManager.Core;component/Images/delete_page.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+            </ListView.ContextMenu>
             </ListView>
         
         <!--<Button Command="{Binding ConnectVPNCommand}" Content="{Binding DataContext.ButtonContent, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
         <Button Command="{Binding DisconnectVPNCommand}" Content="Disconnect from VPN"/>-->
-    </StackPanel>
+   
         </extToolkit:BusyIndicator>
     </Grid>
 </UserControl>

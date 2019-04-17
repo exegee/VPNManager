@@ -16,24 +16,13 @@ using System.Windows.Shapes;
 namespace Basic.Views
 {
     /// <summary>
-    /// Logika interakcji dla klasy BasicView.xaml
+    /// Logika interakcji dla klasy EditVpnRemoteHostView.xaml
     /// </summary>
-    public partial class BasicView : UserControl
+    public partial class EditVpnRemoteHostView : UserControl
     {
-        public BasicView()
+        public EditVpnRemoteHostView()
         {
             InitializeComponent();
         }
-
-        //private void ListView_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    var fff = sender as ListView;
-        //    Console.WriteLine(fff.SelectedItem);
-        //}
-
-        //private void ListViewItem_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    Console.WriteLine("rightclick");
-        //}
     }
 }

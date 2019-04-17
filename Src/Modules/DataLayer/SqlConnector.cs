@@ -180,6 +180,55 @@ namespace DataLayer
 
             return result;
         }
+
+        public bool UpdateVpnRemoteHost(VpnRemoteHost vpnRemoteHost)
+        {
+            bool result = false;
+
+            // Open new sql connection
+            using (SqlConnection sqlConnection = GetSqlConnection())
+            {
+                // Create new sql command
+                using (SqlCommand sqlCommand = sqlConnection.CreateCommand())
+                {
+                    // Use stored procedure with number parameter
+                    sqlCommand.CommandText = @"spUpdateVpnRemoteHost";
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlParameter id = new SqlParameter("id", System.Data.SqlDbType.Int);
+                    SqlParameter hostName = new SqlParameter("hostName", System.Data.SqlDbType.VarChar);
+                    SqlParameter hostDescription = new SqlParameter("hostDescription", System.Data.SqlDbType.VarChar);
+                    SqlParameter networkDst = new SqlParameter("networkDst", System.Data.SqlDbType.VarChar);
+                    SqlParameter networkMask = new SqlParameter("networkMask", System.Data.SqlDbType.VarChar);
+                    SqlParameter gateway = new SqlParameter("gateway", System.Data.SqlDbType.VarChar);
+                    SqlParameter queryStatus = new SqlParameter("queryStatus", System.Data.SqlDbType.Bit) { Direction = System.Data.ParameterDirection.Output };
+                    id.Value = vpnRemoteHost.Id;
+                    sqlCommand.Parameters.Add(id);
+
+                    hostName.Value = vpnRemoteHost.HostName;
+                    sqlCommand.Parameters.Add(hostName);
+
+                    hostDescription.Value = vpnRemoteHost.HostDescription;
+                    sqlCommand.Parameters.Add(hostDescription);
+
+                    networkDst.Value = vpnRemoteHost.NetworkDst;
+                    sqlCommand.Parameters.Add(networkDst);
+
+                    networkMask.Value = vpnRemoteHost.NetworkMask;
+                    sqlCommand.Parameters.Add(networkMask);
+
+                    gateway.Value = vpnRemoteHost.Gateway;
+                    sqlCommand.Parameters.Add(gateway);
+
+                    sqlCommand.Parameters.Add(queryStatus);
+
+                    sqlCommand.ExecuteNonQuery();
+
+                    result = (bool)queryStatus.Value;
+                }
+            }
+
+            return result;
+        }
         #endregion
     }
 }

@@ -81,6 +81,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Events\GlobalEvents.cs" />
     <Compile Include="Events\StatusBarEvent.cs" />
+    <Compile Include="IpAddr.cs" />
     <Compile Include="ModuleBase.cs" />
     <Compile Include="PasswordBoxAssistant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -132,6 +133,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_bullet.png" />
+    <Resource Include="Images\delete_bullet.png" />
+    <Resource Include="Images\edit_bullet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_link.png" />
+    <Resource Include="Images\delete_link.png" />
+    <Resource Include="Images\edit_link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_page.png" />
+    <Resource Include="Images\delete_page.png" />
+    <Resource Include="Images\edit_page.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

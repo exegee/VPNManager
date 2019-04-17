@@ -6,5 +6,6 @@ namespace DataLayer
     public interface ISqlConnector
     {
         List<VpnRemoteHost> GetRemoteHosts();
+        bool UpdateVpnRemoteHost(VpnRemoteHost vpnRemoteHost);
     }
 }

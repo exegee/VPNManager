@@ -11,9 +11,9 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 
-    <DockPanel LastChildFill="True">
+    <DockPanel>
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuRegion}" DockPanel.Dock="Top"/>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.StatusBarRegion}" DockPanel.Dock="Bottom" Width="Auto"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" VerticalAlignment="Stretch"/>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.StatusBarRegion}" DockPanel.Dock="Bottom" />
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" Height="Auto"/>
     </DockPanel>
 </Window>
