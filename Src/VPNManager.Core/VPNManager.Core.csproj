@@ -35,6 +35,9 @@
     <Reference Include="DotRas, Version=1.3.5166.33435, Culture=neutral, PublicKeyToken=b378f04384b7892a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DotRas.for.Win8.1.3.0\lib\net40\DotRas.dll</HintPath>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -58,6 +61,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -82,6 +87,7 @@
     <Compile Include="Events\GlobalEvents.cs" />
     <Compile Include="Events\StatusBarEvent.cs" />
     <Compile Include="IpAddr.cs" />
+    <Compile Include="MinimizeToTray.cs" />
     <Compile Include="ModuleBase.cs" />
     <Compile Include="PasswordBoxAssistant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -31,7 +31,7 @@ namespace VPNManager
 
         private void DispatcherUnhandledExceptionHandler(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            handlerService.ShowExceptionWindow2(null, null, null);
+            handlerService.ShowExceptionWindow(e.Exception.Message + e.Exception.InnerException + e.Exception.Source);
             //TODO Add new exception handler - add new custom notification ( view and viewmodel ) in VPNManager and publish exception messages via EventAggregator ?
             //handlerService.ShowExceptionWindow(e.Exception.Message);
             e.Handled = true;

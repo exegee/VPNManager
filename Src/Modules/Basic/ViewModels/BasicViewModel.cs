@@ -108,6 +108,7 @@ namespace Basic.ViewModels
             _vPNService.Disconnected += _vPNService_Disconnected;
             _closingService.ApplicationClosing += _closingService_ApplicationClosing;
             EditVpnRemoteHostRequest = new InteractionRequest<INotification>();
+            
         }
 
         private void OnMouseRightClick(object obj)

@@ -8,7 +8,7 @@
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
         Title="VPN Manager" Height="450" Width="800"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
 
     <DockPanel>
